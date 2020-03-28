@@ -44,7 +44,7 @@ Example Playbook
   become_method: sudo
 
   roles:
-    - role: spigot
+    - role: ansible-spigot
       vars:
         gigs: 3.5
 ```
