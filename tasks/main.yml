@@ -1,0 +1,51 @@
+---
+# tasks file for spigot
+- import_role:
+      name: java
+- import_role:
+      name: git
+- name: create minecraft admin user
+  user:
+    name: "{{ admin_username }}"
+    comment: Minecraft Admin
+    state: present
+- block:
+  - name: ansible create spigot directory
+    file:
+      path: "{{ spigot_dir }}"
+      state: directory
+  - name: ansible create minecraft server directory example
+    file:
+      path: "{{ spigot_dir }}/server/"
+      state: directory
+  - name: Download spigot buildtools
+    get_url:
+      url: https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
+      dest: "{{ spigot_dir }}/BuildTools.jar"
+      owner: mcadmin
+  - name: remove old spigot packages
+    shell: rm -f "{{ spigot_dir }}/server/spigot*.jar"
+    args:
+      warn: false
+  - name: building spigot tools
+    shell:
+      cmd: "java -jar BuildTools.jar --rev latest --output-dir {{ spigot_dir }}/server"
+      chdir: "{{ spigot_dir }}"
+  - name: copy eula.txt
+    copy:
+      src: eula.txt
+      dest: "{{ spigot_dir }}/server"
+  - name: copy ops
+    copy:
+      src: ops.json
+      dest: "{{ spigot_dir }}/server"
+  - name: copy plugins
+    copy:
+      src: plugins
+      dest: "{{ spigot_dir }}/server"
+  - name: running server
+    shell:
+      cmd: nohup java -Xms{{ gigs }}G -Xmx{{ gigs }}G -XX:+UseConcMarkSweepGC -jar spigot*.jar </dev/null >/dev/null 2>&1 &
+      chdir: "{{ spigot_dir }}/server"
+  become: yes
+  become_user: mcadmin

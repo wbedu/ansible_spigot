@@ -1,0 +1,11 @@
+---
+# vars file for spigot role
+
+#default username that will own and run spigot
+admin_username: mcadmin
+
+#default dir that all files will be contained in
+spigot_dir: ~/spigot
+
+#default ram used by server instance in gigabytes
+gigs: 2
