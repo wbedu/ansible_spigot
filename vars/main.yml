@@ -5,7 +5,9 @@
 admin_username: mcadmin
 
 #default dir that all files will be contained in
-spigot_dir: ~/spigot
+spigot_dir: $HOME/spigot
 
 #default ram used by server instance in gigabytes
 gigs: 2
+
+op_users: []
