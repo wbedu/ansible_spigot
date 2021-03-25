@@ -1,0 +1,17 @@
+galaxy_info:
+  author: wbedu@github
+  description: installs valheim server
+  issue_tracker_url: https://github.com/wbedu/ansible-spigot/issues
+  github_branch: main
+  license:
+    - MIT
+  min_ansible_version: 2.9
+
+  platforms:
+  - name: Debian
+  - name: RedHat
+
+  galaxy_tags:
+    - game
+    - valheim
+    - steamcmd
