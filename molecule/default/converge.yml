@@ -1,0 +1,11 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "use ansible-spigot"
+      include_role:
+        name: "ansible-spigot"
+      vars:
+        op_users:
+          - name: user1
+            uuid: 7233d292-06b7-4ced-a157-6f07b37fe91c
