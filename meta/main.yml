@@ -1,6 +1,6 @@
 galaxy_info:
   author: wbedu@github
-  description: installs valheim server
+  description: installs minecraft spiggot server
   issue_tracker_url: https://github.com/wbedu/ansible-spigot/issues
   github_branch: main
   license:

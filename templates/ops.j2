@@ -1,0 +1,12 @@
+[
+  {%- for user in op_users -%}
+  {
+    "uuid": "{{user.uuid}}",
+    "name": "{{user.name}}",
+    "level": 4,
+    "bypassesPlayerLimit": true
+  },
+  {%- endfor -%}
+  {
+  }
+]

@@ -1,8 +1,20 @@
 ---
 # tasks file for spigot
-- name: install java
+- name: install java (RedHat)
   package:
-    name: openjdk-11-jdk
+     name: java-11-openjdk
+  when:  ansible_os_family == 'RedHat'
+
+- name: install java (Debian)
+  package:
+     name: openjdk-11-jdk
+  when:  ansible_os_family == 'Debian'
+
+- name: install git
+  package:
+     name: git
+  when:  ansible_os_family == 'RedHat'
+
 - name: create minecraft admin user
   user:
     name: "{{ admin_username }}"
@@ -27,24 +39,33 @@
     args:
       warn: false
   - name: building spigot tools
-    shell:
-      cmd: "java -jar BuildTools.jar --rev latest --output-dir {{ spigot_dir }}/server"
-      chdir: "{{ spigot_dir }}"
+    command: "java -jar BuildTools.jar --rev latest --output-dir {{ spigot_dir }}/server"
+    args:
+        chdir: "{{ spigot_dir }}"
   - name: copy eula.txt
     copy:
       src: eula.txt
       dest: "{{ spigot_dir }}/server"
-  - name: copy ops
-    copy:
-      src: ops.json
-      dest: "{{ spigot_dir }}/server"
+  - name: create ops
+    template:
+      src: ops.j2
+      dest: "{{ spigot_dir }}/server/ops.json"
   - name: copy plugins
     copy:
       src: plugins
       dest: "{{ spigot_dir }}/server"
   - name: running server
-    shell:
-      cmd: nohup java -Xms{{ gigs }}G -Xmx{{ gigs }}G -XX:+UseConcMarkSweepGC -jar spigot*.jar </dev/null >/dev/null 2>&1 &
+    command: nohup java -Xms{{ gigs }}G -Xmx{{ gigs }}G -XX:+UseConcMarkSweepGC -jar spigot*.jar </dev/null >/dev/null 2>&1 &
+    args:
       chdir: "{{ spigot_dir }}/server"
+
+  - name: echo ops
+    command: cat ops.json
+    args:
+      chdir: "{{ spigot_dir }}/server"
+    register: results
+
+  - debug:
+      var: results
   become: yes
   become_user: "{{ admin_username }}"
