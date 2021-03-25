@@ -1,9 +1,8 @@
 ---
 # tasks file for spigot
-- import_role:
-      name: java
-- import_role:
-      name: git
+- name: install java
+  package:
+    name: openjdk-11-jdk
 - name: create minecraft admin user
   user:
     name: "{{ admin_username }}"

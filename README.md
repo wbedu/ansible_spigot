@@ -27,12 +27,6 @@ gigs: 2
 ```
 see [vars/mail.yml](./vars/main.yml)
 
-
-Dependencies
-------------
-* [Java role](https://github.com/wbedu/ansible-java)
-* [git role](https://github.com/wbedu/ansible-git)
-
 Example Playbook
 ----------------
 
@@ -46,7 +40,7 @@ Example Playbook
   roles:
     - role: spigot
       vars:
-        gigs: 3.5
+        gigs: 2
 ```
 
 Known Issues and Work arounds
