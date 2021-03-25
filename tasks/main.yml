@@ -21,7 +21,7 @@
     get_url:
       url: https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
       dest: "{{ spigot_dir }}/BuildTools.jar"
-      owner: mcadmin
+      owner: "{{ admin_username }}"
   - name: remove old spigot packages
     shell: rm -f "{{ spigot_dir }}/server/spigot*.jar"
     args:
@@ -47,4 +47,4 @@
       cmd: nohup java -Xms{{ gigs }}G -Xmx{{ gigs }}G -XX:+UseConcMarkSweepGC -jar spigot*.jar </dev/null >/dev/null 2>&1 &
       chdir: "{{ spigot_dir }}/server"
   become: yes
-  become_user: mcadmin
+  become_user: "{{ admin_username }}"

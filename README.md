@@ -38,7 +38,7 @@ Example Playbook
   become_method: sudo
 
   roles:
-    - role: spigot
+    - role: ansible-spigot
       vars:
         gigs: 2
 ```
@@ -62,7 +62,7 @@ Known Issues and Work arounds
     ]
     ```
 
-2. dependant on git an custom java roles.
+2. dependant on git and custom java roles.
     * it works but contibution is appreciated at [Java role](https://github.com/wbedu/ansible-java) and [git role](https://github.com/wbedu/ansible-git).
 
 
