@@ -41,32 +41,14 @@ Example Playbook
     - role: ansible-spigot
       vars:
         gigs: 2
+        op_users:
+          - name: user1
+            uuid: 7233d292-06b7-4ced-a157-6f07b37fe91c
+          - name: user2
+            uuid: db6395d8-61a6-4a39-b8e3-891f04270e5c
+          - name: user2
+            uuid: ee028846-c5f7-4042-808a-45b5a01a214d
 ```
-
-Known Issues and Work arounds
------------------------------
-
-1. requires ops.json file to add a user as an operator.
-
-    * you must add your own ops.json file to the [/files](./files) directory.
-    * use [uuid generator](https://mcuuid.net/) to get your uuid
-    * example ops.json:
-    ```json
-    [
-      {
-        "uuid": "you-own-uuid-goes-here",
-        "name": "username",
-        "level": 4,
-        "bypassesPlayerLimit": true
-      }
-    ]
-    ```
-
-2. dependant on git and custom java roles.
-    * it works but contibution is appreciated at [Java role](https://github.com/wbedu/ansible-java) and [git role](https://github.com/wbedu/ansible-git).
-
-
-
 License
 -------
 
