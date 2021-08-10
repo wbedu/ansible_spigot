@@ -1,9 +1,9 @@
 ---
 # tasks file for spigot
+
 - name: install git
   package:
      name: git
-  when:  ansible_os_family == 'RedHat'
 
 - name: create minecraft admin user
   user:
