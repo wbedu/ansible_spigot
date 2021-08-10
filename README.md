@@ -3,7 +3,7 @@ ansible-spigot
 Installs spigot and deploys updated spigot-minecraft server.
 By running this role you are accepting [Mojang/Minecraft's eula](https://account.mojang.com/documents/minecraft_eula) and [Spiggot terms](https://www.spigotmc.org/).
 
-assumes the approviate version of java is installed. (Java 16 or higher as of Aug 2020)
+Assumes the approviate version of java is installed. (Java 16 or higher as of Aug 2020)
 
 
 Installs pluggins placed in [./files/plugins](./files/plugins)
