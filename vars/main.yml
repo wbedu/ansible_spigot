@@ -10,4 +10,9 @@ spigot_dir: $HOME/spigot
 #default ram used by server instance in gigabytes
 gigs: 2
 
+#server operators
 op_users: []
+
+#path that java is installed at
+#defaults to attempt useing PATH variable
+java_path: "java"

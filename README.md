@@ -11,7 +11,7 @@ Requirements
 
 Role Variables
 --------------
-```markdown
+```yml
 ---
 # vars file for spigot role
 
