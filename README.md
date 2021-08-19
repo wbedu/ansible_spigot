@@ -27,17 +27,22 @@ Installs pluggins placed in [./files/plugins](https://github.com/wbedu/ansible_s
 ## Role Variables
 
 ```yml
----
-# vars file for spigot role
-
-#default username that will own and run spigot
+# default username that will own and run spigot
 admin_username: mcadmin
 
-#default dir that all files will be contained in
-spigot_dir: ~/spigot
+# default dir that all files will be contained in
+spigot_dir: $HOME/spigot
 
-#default ram used by server instance in gigabytes
+# default ram used by server instance in gigabytes
 gigs: 2
+
+# server operators
+op_users: []
+
+# path that java is installed at
+# defaults to attempt useing PATH variable
+java_path: "java"
+
 ```
 
 see [vars/mail.yml](https://github.com/wbedu/ansible_spigot/blob/master/vars/main.yml)
@@ -47,6 +52,17 @@ see [vars/mail.yml](https://github.com/wbedu/ansible_spigot/blob/master/vars/mai
 1.  run galaxy install
 
    `$ ansible-galaxy install wbedu.ansible_spigot`
+
+2. set your server operators in a Variables
+
+```yml
+vars:
+  op_users:
+    - name: user1
+      uuid: 7233d292-06b7-4ced-a157-6f07b37fe91c
+```
+
+Note: you can find your uuid using the mojang api here https://api.mojang.com/users/profiles/minecraft/name replace name with your minecraft user name or try sites like [https://mcuuid.net/](https://mcuuid.net/) and [https://minecraftuuid.com/](https://minecraftuuid.com/)
 
 2.  Create a playbook like below and run
 
