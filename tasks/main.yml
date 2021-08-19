@@ -1,19 +1,9 @@
 ---
 # tasks file for spigot
-- name: install java (RedHat)
-  package:
-     name: java-11-openjdk
-  when:  ansible_os_family == 'RedHat'
-
-- name: install java (Debian)
-  package:
-     name: openjdk-11-jdk
-  when:  ansible_os_family == 'Debian'
 
 - name: install git
   package:
      name: git
-  when:  ansible_os_family == 'RedHat'
 
 - name: create minecraft admin user
   user:
@@ -39,7 +29,7 @@
     args:
       warn: false
   - name: building spigot tools
-    command: "java -jar BuildTools.jar --rev latest --output-dir {{ spigot_dir }}/server"
+    command: "{{ java_path }} -jar BuildTools.jar --rev latest --output-dir {{ spigot_dir }}/server"
     args:
         chdir: "{{ spigot_dir }}"
   - name: copy eula.txt
@@ -55,7 +45,7 @@
       src: plugins
       dest: "{{ spigot_dir }}/server"
   - name: running server
-    command: nohup java -Xms{{ gigs }}G -Xmx{{ gigs }}G -XX:+UseConcMarkSweepGC -jar spigot*.jar </dev/null >/dev/null 2>&1 &
+    command: nohup {{ java_path }} -Xms{{ gigs }}G -Xmx{{ gigs }}G -XX:+UseConcMarkSweepGC -jar spigot*.jar </dev/null >/dev/null 2>&1 &
     args:
       chdir: "{{ spigot_dir }}/server"
 
