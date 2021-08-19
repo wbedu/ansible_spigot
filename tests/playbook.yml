@@ -1,11 +1,13 @@
 ---
-- name: Converge
-  hosts: all
-  tasks:
-    - name: "use ansible_spigot"
-      include_role:
-        name: "ansible_spigot"
+- hosts: all
+  remote_user: root
+  become: yes
+  become_method: sudo
+
+  roles:
+    - role: wbedu.ansible_spigot
       vars:
+        gigs: 2
         op_users:
           - name: user1
             uuid: 7233d292-06b7-4ced-a157-6f07b37fe91c

@@ -1,7 +1,7 @@
 galaxy_info:
   author: wbedu@github
   description: installs minecraft spiggot server
-  issue_tracker_url: https://github.com/wbedu/ansible-spigot/issues
+  issue_tracker_url: https://github.com/wbedu/ansible_spigot/issues
   github_branch: main
   license:
     - MIT
