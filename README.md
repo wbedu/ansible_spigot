@@ -6,7 +6,7 @@ By running this role you are accepting [Mojang/Minecraft's eula](https://account
 
 Assumes the approviate version of java is installed. (Java 16 or higher as of Aug 2020)
 
-Installs pluggins placed in [./files/plugins](https://github.com/wbedu/ansible_spigot/tree/master/files/plugins)
+Installs plugins placed in [./files/plugins](https://github.com/wbedu/ansible_spigot/tree/master/files/plugins)
 
 
 ## Table of Contents
