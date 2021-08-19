@@ -1,9 +1,11 @@
 ---
 # tasks file for spigot
 
-- name: install git
+- name: install git and screen
   package:
-     name: git
+     name:
+       -  git
+       -  screen
 
 - name: create minecraft admin user
   user:
@@ -45,7 +47,7 @@
       src: plugins
       dest: "{{ spigot_dir }}/server"
   - name: running server
-    command: nohup {{ java_path }} -Xms{{ gigs }}G -Xmx{{ gigs }}G -XX:+UseConcMarkSweepGC -jar spigot*.jar </dev/null >/dev/null 2>&1 &
+    command: screen -m -d {{ java_path }} -Xms{{ gigs }}G -Xmx{{ gigs }}G -jar spigot*.jar
     args:
       chdir: "{{ spigot_dir }}/server"
 
