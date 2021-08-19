@@ -2,9 +2,9 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: "use ansible-spigot"
+    - name: "use ansible_spigot"
       include_role:
-        name: "ansible-spigot"
+        name: "ansible_spigot"
       vars:
         op_users:
           - name: user1

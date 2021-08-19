@@ -1,4 +1,4 @@
-ansible-spigot
+ansible_spigot
 =========
 Installs spigot and deploys updated spigot-minecraft server.
 By running this role you are accepting [Mojang/Minecraft's eula](https://account.mojang.com/documents/minecraft_eula) and [Spiggot terms](https://www.spigotmc.org/).
@@ -38,7 +38,7 @@ Example Playbook
   become_method: sudo
 
   roles:
-    - role: ansible-spigot
+    - role: ansible_spigot
       vars:
         gigs: 2
         op_users:
