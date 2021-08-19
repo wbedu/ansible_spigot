@@ -1,19 +1,31 @@
-ansible_spigot
-=========
+# ansible_spigot
+* * *
+
 Installs spigot and deploys updated spigot-minecraft server.
 By running this role you are accepting [Mojang/Minecraft's eula](https://account.mojang.com/documents/minecraft_eula) and [Spiggot terms](https://www.spigotmc.org/).
 
 Assumes the approviate version of java is installed. (Java 16 or higher as of Aug 2020)
 
+Installs pluggins placed in [./files/plugins](https://github.com/wbedu/ansible_spigot/tree/master/files/plugins)
 
-Installs pluggins placed in [./files/plugins](./files/plugins)
 
-Requirements
-------------
+## Table of Contents
+
+- [Introduction](#ansible_spigot)
+- [Requirements](#Requirements)
+- [Variables](#Role-Variables)
+- [How to Use](#How-to-Use)
+- [Example Playbook](#Example-Playbook)
+- [License](#License)
+- [Author Information](#Author-Information)
+## Requirements
+
+* * *
+
 [Debian](https://en.wikipedia.org/wiki/List_of_Linux_distributions#Debian-based) or [RedHat](https://en.wikipedia.org/wiki/List_of_Linux_distributions#RPM-based) System
 
-Role Variables
---------------
+## Role Variables
+
 ```yml
 ---
 # vars file for spigot role
@@ -26,37 +38,55 @@ spigot_dir: ~/spigot
 
 #default ram used by server instance in gigabytes
 gigs: 2
-
 ```
-see [vars/mail.yml](./vars/main.yml)
 
-Example Playbook
-----------------
+see [vars/mail.yml](https://github.com/wbedu/ansible_spigot/blob/master/vars/main.yml)
+
+## How to Use
+
+1.  run galaxy install
+
+   `$ ansible-galaxy install wbedu.ansible_spigot`
+
+2.  Create a playbook like below and run
+
+
+## Example Playbook
+
+* * *
 
 ```yml
 ---
-- hosts: minecraft
+- hosts: ansible_test
   remote_user: root
-  become: yes
+  become: true
   become_method: sudo
 
-  roles:
-    - role: ansible_spigot
+  tasks:
+    - name: "install java (redhat)"
+      package:
+        name: java-latest-openjdk
+      when: ansible_os_family == "RedHat"
+    - name: "install java (Debian)"
+      package:
+        name: openjdk-16-jdk-headless
+      when: ansible_os_family == "Debian"
+    - name: "run ansible_spigot role"
+      import_role:
+        name: wbedu.ansible_spigot
       vars:
-        gigs: 2
+        gigs: 1
         op_users:
           - name: user1
             uuid: 7233d292-06b7-4ced-a157-6f07b37fe91c
-          - name: user2
-            uuid: db6395d8-61a6-4a39-b8e3-891f04270e5c
-          - name: user2
-            uuid: ee028846-c5f7-4042-808a-45b5a01a214d
 ```
-License
--------
+
+## License
+
+* * *
 
 [GNU GPLv3](https://choosealicense.com/licenses/gpl-3.0/)
 
-Author Information
-------------------
-[https://github.com/wbedu](https://github.com/wbedu)
+## Author Information
+
+<https://github.com/wbedu>

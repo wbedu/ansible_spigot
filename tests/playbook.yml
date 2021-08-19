@@ -9,7 +9,7 @@
       package:
         name: java-latest-openjdk
       when: ansible_os_family == "RedHat"
-    - name: "install java (redhat)"
+    - name: "install java (Debian)"
       package:
         name: openjdk-16-jdk-headless
       when: ansible_os_family == "Debian"
