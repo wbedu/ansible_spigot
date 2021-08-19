@@ -18,14 +18,14 @@
           state: directory
           owner: "{{ admin_username }}"
           group: "{{ admin_username }}"
-          mode: '0644'
+          mode: '0744'
      - name: ansible create minecraft server directory example
        file:
           path: "{{ spigot_dir }}/server/"
           state: directory
           owner: "{{ admin_username }}"
           group: "{{ admin_username }}"
-          mode: '0644'
+          mode: '0744'
      - name: Download spigot buildtools
        get_url:
           url: https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
@@ -47,21 +47,21 @@
           dest: "{{ spigot_dir }}/server"
           owner: "{{ admin_username }}"
           group: "{{ admin_username }}"
-          mode: '0644'
+          mode: '0744'
      - name: create ops
        template:
           src: ops.j2
           dest: "{{ spigot_dir }}/server/ops.json"
           owner: "{{ admin_username }}"
           group: "{{ admin_username }}"
-          mode: '0644'
+          mode: '0744'
      - name: copy plugins
        copy:
           src: plugins
           dest: "{{ spigot_dir }}/server"
           owner: "{{ admin_username }}"
           group: "{{ admin_username }}"
-          mode: '0644'
+          mode: '0744'
 
      - name: running server
        command: screen -m -d {{ java_path }} -Xms{{ gigs }}G -Xmx{{ gigs }}G -jar spigot*.jar
