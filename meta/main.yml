@@ -1,5 +1,6 @@
 galaxy_info:
-  author: wbedu@github
+  role_name: ansible_spigot  # if absent directory name hosting role is used instead
+  author: wbedu
   description: installs minecraft spiggot server
   issue_tracker_url: https://github.com/wbedu/ansible_spigot/issues
   github_branch: main
@@ -8,8 +9,8 @@ galaxy_info:
   min_ansible_version: 2.9
 
   platforms:
-  - name: Debian
-  - name: RedHat
+    - name: Debian
+    - name: RedHat
 
   galaxy_tags:
     - game

@@ -4,60 +4,78 @@
 - name: install git and screen
   package:
      name:
-       -  git
-       -  screen
-
+        - git
+        - screen
 - name: create minecraft admin user
   user:
-    name: "{{ admin_username }}"
-    comment: Minecraft Admin
-    state: present
+     name: "{{ admin_username }}"
+     comment: Minecraft Admin
+     state: present
 - block:
-  - name: ansible create spigot directory
-    file:
-      path: "{{ spigot_dir }}"
-      state: directory
-  - name: ansible create minecraft server directory example
-    file:
-      path: "{{ spigot_dir }}/server/"
-      state: directory
-  - name: Download spigot buildtools
-    get_url:
-      url: https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
-      dest: "{{ spigot_dir }}/BuildTools.jar"
-      owner: "{{ admin_username }}"
-  - name: remove old spigot packages
-    shell: rm -f "{{ spigot_dir }}/server/spigot*.jar"
-    args:
-      warn: false
-  - name: building spigot tools
-    command: "{{ java_path }} -jar BuildTools.jar --rev latest --output-dir {{ spigot_dir }}/server"
-    args:
-        chdir: "{{ spigot_dir }}"
-  - name: copy eula.txt
-    copy:
-      src: eula.txt
-      dest: "{{ spigot_dir }}/server"
-  - name: create ops
-    template:
-      src: ops.j2
-      dest: "{{ spigot_dir }}/server/ops.json"
-  - name: copy plugins
-    copy:
-      src: plugins
-      dest: "{{ spigot_dir }}/server"
-  - name: running server
-    command: screen -m -d {{ java_path }} -Xms{{ gigs }}G -Xmx{{ gigs }}G -jar spigot*.jar
-    args:
-      chdir: "{{ spigot_dir }}/server"
+     - name: ansible create spigot directory
+       file:
+          path: "{{ spigot_dir }}"
+          state: directory
+          owner: "{{ admin_username }}"
+          group: "{{ admin_username }}"
+          mode: '0644'
+     - name: ansible create minecraft server directory example
+       file:
+          path: "{{ spigot_dir }}/server/"
+          state: directory
+          owner: "{{ admin_username }}"
+          group: "{{ admin_username }}"
+          mode: '0644'
+     - name: Download spigot buildtools
+       get_url:
+          url: https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
+          dest: "{{ spigot_dir }}/BuildTools.jar"
+          owner: "{{ admin_username }}"
+          group: "{{ admin_username }}"
+          mode: '0744'
+     - name: remove old spigot packages
+       command: rm -f "{{ spigot_dir }}/server/spigot*.jar"
+       args:
+          warn: false
+     - name: building spigot tools
+       command: "{{ java_path }} -jar BuildTools.jar --rev latest --output-dir {{ spigot_dir }}/server"
+       args:
+          chdir: "{{ spigot_dir }}"
+     - name: copy eula.txt
+       copy:
+          src: eula.txt
+          dest: "{{ spigot_dir }}/server"
+          owner: "{{ admin_username }}"
+          group: "{{ admin_username }}"
+          mode: '0644'
+     - name: create ops
+       template:
+          src: ops.j2
+          dest: "{{ spigot_dir }}/server/ops.json"
+          owner: "{{ admin_username }}"
+          group: "{{ admin_username }}"
+          mode: '0644'
+     - name: copy plugins
+       copy:
+          src: plugins
+          dest: "{{ spigot_dir }}/server"
+          owner: "{{ admin_username }}"
+          group: "{{ admin_username }}"
+          mode: '0644'
 
-  - name: echo ops
-    command: cat ops.json
-    args:
-      chdir: "{{ spigot_dir }}/server"
-    register: results
+     - name: running server
+       command: screen -m -d {{ java_path }} -Xms{{ gigs }}G -Xmx{{ gigs }}G -jar spigot*.jar
+       args:
+          chdir: "{{ spigot_dir }}/server"
 
-  - debug:
-      var: results
-  become: yes
+     - name: echo ops
+       command: cat ops.json
+       args:
+          chdir: "{{ spigot_dir }}/server"
+       register: results
+
+     - name: print results op users files
+       debug:
+          var: results
+  become: true
   become_user: "{{ admin_username }}"

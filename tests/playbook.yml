@@ -1,21 +1,20 @@
 ---
 - hosts: ansible_test
   remote_user: root
-  become: yes
+  become: true
   become_method: sudo
 
   tasks:
     - name: "install java (redhat)"
       package:
         name: java-latest-openjdk
-        state: latest
       when: ansible_os_family == "RedHat"
     - name: "install java (redhat)"
       package:
         name: openjdk-16-jdk-headless
-        state: latest
       when: ansible_os_family == "Debian"
-    - import_role:
+    - name: "run ansible_spigot role"
+      import_role:
         name: wbedu.ansible_spigot
       vars:
         gigs: 1

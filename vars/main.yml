@@ -1,18 +1,18 @@
 ---
 # vars file for spigot role
 
-#default username that will own and run spigot
+# default username that will own and run spigot
 admin_username: mcadmin
 
-#default dir that all files will be contained in
+# default dir that all files will be contained in
 spigot_dir: $HOME/spigot
 
-#default ram used by server instance in gigabytes
+# default ram used by server instance in gigabytes
 gigs: 2
 
-#server operators
+# server operators
 op_users: []
 
-#path that java is installed at
-#defaults to attempt useing PATH variable
+# path that java is installed at
+# defaults to attempt useing PATH variable
 java_path: "java"
