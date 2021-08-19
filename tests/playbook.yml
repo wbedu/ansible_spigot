@@ -1,0 +1,28 @@
+---
+- hosts: ansible_test
+  remote_user: root
+  become: yes
+  become_method: sudo
+
+  tasks:
+    - name: "install java (redhat)"
+      package:
+        name: java-latest-openjdk
+        state: latest
+      when: ansible_os_family == "RedHat"
+    - name: "install java (redhat)"
+      package:
+        name: openjdk-16-jdk-headless
+        state: latest
+      when: ansible_os_family == "Debian"
+    - import_role:
+        name: wbedu.ansible_spigot
+      vars:
+        gigs: 1
+        op_users:
+          - name: user1
+            uuid: 7233d292-06b7-4ced-a157-6f07b37fe91c
+          - name: user2
+            uuid: db6395d8-61a6-4a39-b8e3-891f04270e5c
+          - name: user2
+            uuid: ee028846-c5f7-4042-808a-45b5a01a214d
